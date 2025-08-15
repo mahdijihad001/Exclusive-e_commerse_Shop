@@ -8,7 +8,7 @@ export const globalErrorHanle = (err: any, req: Request, res: Response, next: Ne
         console.log(err);
     }
 
-    let stausCode: number = 500;
+    let stausCode = 500;
     let message = `Something went wrong.`;
 
     if (err instanceof AppError) {
