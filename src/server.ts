@@ -63,7 +63,7 @@ process.on("uncaughtException", (err) => {
 });
 // Project a amon kono akta bug aca oi login ta amra handle kori ai tokhon ai error ta asba
 process.on("unhandledRejection", (err) => {
-    console.log("UnHandle Rejection detected... Server shuting down!");
+    console.log("UnHandle Rejection detected... Server shuting down!" , err);
 
     if (server) {
         server.close(() => {
