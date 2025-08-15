@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import { AppError } from "../utils/AppError.js";
 import { envVer } from "../config/env.js";
+import { AppError } from "../utils/AppError.js";
 
 export const globalErrorHanle = (err: any, req: Request, res: Response, next: NextFunction) => {
 
