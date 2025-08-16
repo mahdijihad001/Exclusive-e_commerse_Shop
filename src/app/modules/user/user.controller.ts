@@ -11,4 +11,8 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
         success: true,
         data: result
     })
-})
+});
+
+export const userController = {
+    createUser
+}
