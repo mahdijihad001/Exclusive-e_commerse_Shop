@@ -12,13 +12,13 @@ const userSchema = new Schema<IUser>({
         required: true,
         unique: true
     },
-    phone: {
-        type: String,
-        unique: true
-    },
     password: {
         type: String,
         required: [true, "Password must be required"]
+    },
+    phone: {
+        type: String,
+        unique: true
     },
     photo: {
         type: String
