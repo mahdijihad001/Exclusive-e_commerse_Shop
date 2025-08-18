@@ -13,6 +13,16 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
     })
 });
 
+const loginUser = catchAsync(async(req : Request , res : Response , next : NextFunction) =>{
+    sendResponse(res , {
+        stautsCode : 200,
+        success : true,
+        message : "Successfully login.",
+        data : null
+    })
+})
+
 export const userController = {
-    createUser
+    createUser,
+    loginUser
 }

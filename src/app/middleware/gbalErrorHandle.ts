@@ -5,9 +5,9 @@ import { envVer } from "../config/env";
 
 export const globalErrorHanle = (err: any, req: Request, res: Response, next: NextFunction) => {
 
-    // if (envVer.DEVELOPMENT_ENVIRONMENT === "development") {
-    //     console.log(err);
-    // }
+    if (envVer.DEVELOPMENT_ENVIRONMENT === "development") {
+        console.log(err);
+    }
 
     let stausCode = 500;
     let message = `Something went wrong.`;
