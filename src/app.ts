@@ -1,6 +1,7 @@
 import express, { type Request, type Response } from "express";
 export const app = express();
 import cors from "cors";
+import cookiePerser from "cookie-parser";
 import userRouter from "./app/modules/user/user.router";
 import { globalErrorHanle } from "./app/middleware/gbalErrorHandle";
 import { notFoundRoute } from "./app/middleware/notFoundRoute";
@@ -10,7 +11,7 @@ import { notFoundRoute } from "./app/middleware/notFoundRoute";
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(cors());
-
+app.use(cookiePerser());
 
 app.use("/user" , userRouter);
 

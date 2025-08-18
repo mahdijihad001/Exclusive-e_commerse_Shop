@@ -1,19 +1,20 @@
+import { envVer } from "../config/env";
 import { IUser } from "../modules/user/user.interfaces";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-interface IData {
+export interface IData {
     userId?: string,
     email?: string,
     role?: string
 }
 
 const accessSecrate = (data: Partial<IData>) => {
-    const token = jwt.sign(data, "secrate", { expiresIn: "7d" });
+    const token = jwt.sign(data, envVer.ACCESS_SECRATE, { expiresIn: "7d" });
     return token
 };
 
 const refreshSecrate = (data: Partial<IData>) => {
-    const token = jwt.sign(data, "secrate", { expiresIn: "30d" });
+    const token = jwt.sign(data, envVer.REFRESH_SECRATE , { expiresIn: "30d" });
     return token
 }
 
