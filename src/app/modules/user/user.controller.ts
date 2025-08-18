@@ -56,7 +56,7 @@ const createAccessTokenUseRefreshToken = (req: Request, res: Response) => {
     };
 
     const payload = {
-        userId: decodedToken._id,
+        userId: decodedToken.userId,
         email: decodedToken.email,
         role: decodedToken.role
     }
