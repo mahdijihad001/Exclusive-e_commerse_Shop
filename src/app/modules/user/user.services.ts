@@ -1,5 +1,8 @@
+import mongoose from "mongoose";
+import { userSearchableFild } from "../../constrain/constrain";
 import { AppError } from "../../utils/AppError";
 import { generateJwtToken } from "../../utils/jwt";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 import { IUser } from "./user.interfaces";
 import User from "./user.model";
 import bcrypt from "bcryptjs";
@@ -38,9 +41,33 @@ const loginUser = async (payload: Partial<IUser>) => {
 
     return {token , rest}
 
+};
+
+
+const getAllUser = async(query : Record<string , string>) =>{
+
+    const queryBuilder = new QueryBuilder(User.find() , query);
+
+    const user = await queryBuilder.filter().search(userSearchableFild).paginate().sort().build();
+    const meta = await queryBuilder.getMeta();
+
+    return {user , meta};
+
+};
+
+const getSingleUser = async(id : mongoose.Types.ObjectId) =>{
+    const findUser = await User.findById(id);
+
+    if(!findUser){
+        throw new AppError(404 , "User not found.");
+    };
+
+    return findUser
 }
 
 export const userServices = {
     createUser,
-    loginUser
+    loginUser,
+    getAllUser,
+    getSingleUser
 }

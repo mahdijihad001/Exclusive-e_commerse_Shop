@@ -5,7 +5,7 @@ import { envVer } from "../config/env";
 import User from "../modules/user/user.model";
 
 export const protect = (...auths: string[]) => async(req: Request, res: Response, next: NextFunction) => {
-    const token = req.cookies.accessToken;
+    const token = req.cookies.refreshToken;
 
     if (!token) {
         throw new AppError(401, "Unauthoraized user");
@@ -14,7 +14,7 @@ export const protect = (...auths: string[]) => async(req: Request, res: Response
     let decodedToken : JwtPayload;
 
     try {
-        decodedToken = jwt.verify(token, envVer.ACCESS_SECRATE) as JwtPayload
+        decodedToken = jwt.verify(token, envVer.REFRESH_SECRATE) as JwtPayload
     } catch (error) {
         throw new AppError(401, "User token not valid. Please login again.");
     };

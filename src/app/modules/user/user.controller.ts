@@ -5,6 +5,7 @@ import { userServices } from "./user.services";
 import { AppError } from "../../utils/AppError";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { envVer } from "../../config/env";
+import mongoose from "mongoose";
 
 const createUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await userServices.createUser(req.body);
@@ -64,12 +65,49 @@ const createAccessTokenUseRefreshToken = (req: Request, res: Response) => {
     const accessToken = jwt.sign(payload, envVer.ACCESS_SECRATE, { expiresIn: "7d" });
 
     res.cookie("accessToken", accessToken, { httpOnly: true, secure: false });
-    res.json({message : "Token refreshded success."});
+    res.json({ message: "Token refreshded success." });
 }
 
+const getallUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const query = req.query
+    const result = await userServices.getAllUser(query as Record<string, string>)
+
+    sendResponse(res, {
+        success: true,
+        stautsCode: 200,
+        message: "All user retrived successfully",
+        data: result.user,
+        meta: result.meta
+    })
+});
+
+const getSingleUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const { id } = req.params;
+
+    if (!id) {
+        throw new AppError(400, "User ID is required");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new AppError(400, "User ID is not valid");
+    }
+    const objectId = new mongoose.Types.ObjectId(id);
+
+    const result = await userServices.getSingleUser(objectId);
+
+    sendResponse(res, {
+        stautsCode: 200,
+        success: true,
+        message: "User finded successfully.",
+        data: result
+    })
+})
 
 export const userController = {
     createUser,
     loginUser,
-    createAccessTokenUseRefreshToken
+    createAccessTokenUseRefreshToken,
+    getallUser,
+    getSingleUser
 }
