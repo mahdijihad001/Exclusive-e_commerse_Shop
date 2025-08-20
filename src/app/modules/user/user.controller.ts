@@ -146,7 +146,7 @@ const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunc
         message: "User upated Successfully!",
         data: result
     });
-})
+});
 
 export const userController = {
     createUser,
