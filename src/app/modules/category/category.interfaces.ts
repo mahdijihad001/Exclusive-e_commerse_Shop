@@ -1,6 +1,6 @@
 export interface ICategory{
     _id ? : string,
     name : string,
-    slug : string,
+    slug ?: string,
     image : string
 }
