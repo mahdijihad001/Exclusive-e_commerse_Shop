@@ -9,11 +9,13 @@ const userRouter = Router();
 
 // Auth
 userRouter.post("/login" , userController.loginUser);
-userRouter.post("/refreshToken" , userController.createAccessTokenUseRefreshToken);
+userRouter.post("/refreshToken" ,userController.createAccessTokenUseRefreshToken);
 
 // User
 userRouter.post("/create" , requestValidation(createUserZodSchema) , userController.createUser);
 userRouter.get("/" , protect(Role.ADMIN , Role.SUPERADMIN) , userController.getallUser);
 userRouter.get("/:id" , protect(...Object.values(Role)) , userController.getSingleUser);
- 
+userRouter.delete("/:id" , protect(Role.ADMIN , Role.SUPERADMIN) ,userController.deleteSingleUser);
+userRouter.patch("/:id" , protect(...Object.values(Role)) , userController.updateUser);
+
 export default userRouter;

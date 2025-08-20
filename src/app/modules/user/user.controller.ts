@@ -66,7 +66,7 @@ const createAccessTokenUseRefreshToken = (req: Request, res: Response) => {
 
     res.cookie("accessToken", accessToken, { httpOnly: true, secure: false });
     res.json({ message: "Token refreshded success." });
-}
+};
 
 const getallUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const query = req.query
@@ -102,6 +102,50 @@ const getSingleUser = catchAsync(async (req: Request, res: Response, next: NextF
         message: "User finded successfully.",
         data: result
     })
+});
+
+const deleteSingleUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const { id } = req.params;
+
+    if (!id) {
+        throw new AppError(400, "User ID is required");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new AppError(400, "User id not valid");
+    }
+
+    const obejctId = new mongoose.Types.ObjectId(id);
+
+    await userServices.deleteUser(obejctId);
+
+    sendResponse(res, {
+        stautsCode: 200,
+        success: true,
+        message: "User deleted success",
+        data: null
+    })
+});
+
+const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const { id } = req.params;
+
+    if (!id) {
+        throw new AppError(400, "User Id required to update a user.")
+    }
+
+    const objectId = new mongoose.Types.ObjectId(id);
+
+    const result = await userServices.updateUser(objectId, req.body);
+
+    sendResponse(res, {
+        stautsCode: 200,
+        success: true,
+        message: "User upated Successfully!",
+        data: result
+    });
 })
 
 export const userController = {
@@ -109,5 +153,7 @@ export const userController = {
     loginUser,
     createAccessTokenUseRefreshToken,
     getallUser,
-    getSingleUser
+    getSingleUser,
+    deleteSingleUser,
+    updateUser
 }

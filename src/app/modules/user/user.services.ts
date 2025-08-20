@@ -63,11 +63,28 @@ const getSingleUser = async(id : mongoose.Types.ObjectId) =>{
     };
 
     return findUser
+};
+
+const deleteUser = async(id : mongoose.Types.ObjectId) =>{
+    await User.findByIdAndDelete(id);
+    return null
+};
+
+const updateUser = async(id : mongoose.Types.ObjectId, payload : Partial<IUser>) =>{
+    const result = await User.findByIdAndUpdate(id , {...payload} , {new : true , runValidators : true});
+    if(!result){
+        throw new AppError(400 , "User not update.");
+    };
+
+    return result;
+
 }
 
 export const userServices = {
     createUser,
     loginUser,
     getAllUser,
-    getSingleUser
+    getSingleUser,
+    deleteUser,
+    updateUser
 }
