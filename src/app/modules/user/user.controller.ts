@@ -26,22 +26,18 @@ const loginUser = catchAsync(async (req: Request, res: Response, next: NextFunct
 
     const result = await userServices.loginUser(req.body);
 
-    res.cookie("accessToken", result.token.accessToken, { httpOnly: true, secure: false });
-    res.cookie("refreshToken", result.token.refreshToken, { httpOnly: true, secure: false });
-
 
     sendResponse(res, {
         stautsCode: 200,
         success: true,
         message: "Successfully login.",
-        data: result.rest
+        data: result
     })
 });
 
 
 const createAccessTokenUseRefreshToken = (req: Request, res: Response) => {
-    const token = req.cookies.refreshToken;
-
+    const token = req.headers?.authorization
     if (!token) {
         throw new AppError(401, "Please login first.")
     };
@@ -64,8 +60,7 @@ const createAccessTokenUseRefreshToken = (req: Request, res: Response) => {
 
     const accessToken = jwt.sign(payload, envVer.ACCESS_SECRATE, { expiresIn: "7d" });
 
-    res.cookie("accessToken", accessToken, { httpOnly: true, secure: false });
-    res.json({ message: "Token refreshded success." });
+    res.json({ message: "Token refreshded success." , accessToken : accessToken});
 };
 
 const getallUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
