@@ -10,5 +10,10 @@ export declare const productServices: {
     }> & {
         __v: number;
     }) | null>;
+    updateProduct: (productId: string, payload: Partial<IProduct>) => Promise<(import("mongoose").Document<unknown, {}, IProduct, {}, {}> & IProduct & Required<{
+        _id: string;
+    }> & {
+        __v: number;
+    }) | null>;
 };
 //# sourceMappingURL=product.services.d.ts.map

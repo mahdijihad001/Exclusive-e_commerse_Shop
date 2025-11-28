@@ -23,7 +23,7 @@ const deleteProduct = catchAsync(
 
         const result = await productServices.deleteProduct(id as string);
 
-        if (!result) throw new AppError(400 , "Product not found")
+        if (!result) throw new AppError(400, "Product not found")
 
         sendResponse(res, {
             stautsCode: 200,
@@ -34,7 +34,27 @@ const deleteProduct = catchAsync(
     }
 );
 
+const updateProduct = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const { id } = req.params;
+        const payload = req.body;
+
+        const result = await productServices.updateProduct(id as string, payload);
+
+        if (!result) throw new AppError(200, "Product not found");
+
+        sendResponse(res, {
+            stautsCode: 200,
+            success: true,
+            message: "Product updated successfully",
+            data: result,
+        });
+    }
+);
+
+
 export const productController = {
     createProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }
