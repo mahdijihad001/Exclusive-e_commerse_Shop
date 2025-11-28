@@ -3,13 +3,13 @@ export declare const Wishlist: mongoose.Model<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    user: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     productId?: mongoose.Types.ObjectId | null;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    user: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     productId?: mongoose.Types.ObjectId | null;
 }, {}, {
     timestamps: true;
@@ -17,7 +17,7 @@ export declare const Wishlist: mongoose.Model<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    user: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     productId?: mongoose.Types.ObjectId | null;
 } & {
     _id: mongoose.Types.ObjectId;
@@ -29,13 +29,13 @@ export declare const Wishlist: mongoose.Model<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    user: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     productId?: mongoose.Types.ObjectId | null;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    user: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     productId?: mongoose.Types.ObjectId | null;
 }>, {}, mongoose.ResolveSchemaOptions<{
     timestamps: true;
@@ -43,7 +43,7 @@ export declare const Wishlist: mongoose.Model<{
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    user: mongoose.Types.ObjectId;
+    userId: mongoose.Types.ObjectId;
     productId?: mongoose.Types.ObjectId | null;
 }> & {
     _id: mongoose.Types.ObjectId;
