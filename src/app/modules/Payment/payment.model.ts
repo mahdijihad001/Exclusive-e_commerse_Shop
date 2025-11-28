@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { IOrder } from "./payment.interface";
 
-const orderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema<IOrder>(
     {
-        user: {
+        userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
@@ -46,4 +47,4 @@ const orderSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export const Order = mongoose.model("Order", orderSchema);
+export const Order = mongoose.model<IOrder>("Order", orderSchema);

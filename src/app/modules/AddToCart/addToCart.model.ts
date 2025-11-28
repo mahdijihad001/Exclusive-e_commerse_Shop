@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { ICart } from "./addToCart.interfaces";
 
-const cartSchema = new mongoose.Schema(
+const cartSchema = new mongoose.Schema<ICart>(
     {
-        user: {
+        userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
@@ -21,4 +22,4 @@ const cartSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export const Cart = mongoose.model("Cart", cartSchema);
+export const Cart = mongoose.model<ICart>("Cart", cartSchema);
